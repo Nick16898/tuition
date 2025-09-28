@@ -32,12 +32,18 @@ class adminController extends BaseController {
   login = async (req, res) => {
     let email = (req.body.email || "").toLowerCase()
     let password = req.body.password || "";
+
+    console.log(`Attempting login for email: ${email}`);
+
+
     try {
       //check for email and password
       let adminDetail = await this.service.findByemail(email);
       if (!adminDetail) {
         return errorResponse(res, "Invalid Credentials");
       }
+      console.log(adminDetail);
+
 
       //match the password
       const isMatch = await verifyPassword(password, adminDetail.password);
