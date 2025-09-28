@@ -1,0 +1,18 @@
+# Root indicates that this is the top-most EditorConfig file and other files should not override it.
+root = true
+
+# Match all files
+[*]
+indent_style = space
+indent_size = 4
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.js]
+indent_size = 2
+
+# Match Markdown files
+[*.md]
+trim_trailing_whitespace = false
