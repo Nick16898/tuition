@@ -29,6 +29,9 @@ const apiAuth = async (req, res, next) => {
 };
 
 const accessAuth = async (req, res, next) => {
+  console.log('====================================');
+  console.log(process.env.TUITION_DB_HOST);
+  console.log('====================================');
   if (!(req.headers && req.headers["x-authorization"])) {
     return errorResponse(res, "Token is not provided");
   }

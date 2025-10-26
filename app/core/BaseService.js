@@ -43,9 +43,9 @@ class BaseModel {
       const knexQueryBuilder =
         typeof knexQuery === "function" ? knexQuery(knex) : knexQuery;
       const sql = knexQueryBuilder.toString();
-      console.log('====================================');
-      console.log(sql);
-      console.log('====================================');
+      // console.log('====================================');
+      // console.log(sql);
+      // console.log('====================================');
       return await query(sql);
     } catch (error) {
       console.error("Error executing query:", error);

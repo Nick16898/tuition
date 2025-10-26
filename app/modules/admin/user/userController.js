@@ -43,7 +43,7 @@ class userController extends BaseController {
     let cast = req.body.cast || "OTHER"
     let medium = req.body.medium || ""
     let schooling = req.body.schooling || ""
-    
+
     try {
 
       if (mobileNumber) {
@@ -88,9 +88,7 @@ class userController extends BaseController {
         medium,
         schooling,
       }
-console.log('====================================');
-console.log(req.files);
-console.log('====================================');
+
       if (req.file != undefined && req.file["filename"] != undefined && req.file["filename"] != null && req.file["filename"] != "") {
         field["profilePicture"] = "user/profile/" + req.file["filename"];
       }
@@ -105,10 +103,7 @@ console.log('====================================');
       return successResponse(res, userId ? "Student details updated successfully" : "Student details saved successfully");
 
     } catch (error) {
-      console.log('====================================');
-      console.log(error);
-      console.log('====================================');
-      // return errorResponse(res, "Something Went Wrong");
+      return errorResponse(res, "Something Went Wrong");
     }
   };
 

@@ -659,9 +659,6 @@ const decryptRequest = (req, res, next) => {
   }
 
   try {
-    console.log("====================================");
-    console.log("Before decrypt body:", req.body);
-    console.log("====================================");
 
     // ✅ Only decrypt if body exists and has keys
     if (req.body && Object.keys(req.body).length > 0) {

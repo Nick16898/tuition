@@ -21,6 +21,7 @@ require("events").EventEmitter.prototype._maxListeners = 0;
  * Taking admin database to sync
  */
 const db = require("./app/models/index.js");
+
 db.sequelize
   .sync({ alter: true })
   .then(() => {
