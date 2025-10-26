@@ -1,12 +1,19 @@
 require("dotenv").config();
+
+let TUITION_DB_NAME="tuition"
+let TUITION_DB_USER="postgres"
+let TUITION_DB_PASSWORD="l02Xu7b28dmlfyZW"
+let TUITION_DB_HOST="db.rmbmwtlpavdhkhnuatea.supabase.co"
+let TUITION_DB_PORT="5432"
+
 /*global process*/
 module.exports = {
   development: {
-    host: process.env.TUITION_DB_HOST,
-    username: process.env.TUITION_DB_USER,
-    password: process.env.TUITION_DB_PASSWORD,
-    database: process.env.TUITION_DB_NAME,
-    port: process.env.TUITION_DB_PORT,
+    host: TUITION_DB_HOST,
+    username: TUITION_DB_USER,
+    password: TUITION_DB_PASSWORD,
+    database: TUITION_DB_NAME,
+    port: TUITION_DB_PORT,
     dialect: "postgres",
     logging: false,
     pool: {
