@@ -37,17 +37,22 @@ class userValidator extends BaseValidator {
   });
 
   static addEditStudent = Joi.object({
-    userId: Joi.number().optional().allow(null,""),
+    userId: Joi.number().optional().allow(null, ""),
     fullName: Joi.string().min(2).max(100).required(),
     email: Joi.string().email().required(),
     mobileNumber: Joi.string().pattern(/^[0-9]{10,15}$/).required(),
     address: Joi.string().max(255).optional(),
     joiningDate: Joi.date().optional(),
+    profilePicthre: this.strOptional,
+    medium: this.strOptional,
+    gender: Joi.valid("MALE", "FEMALE", "OTHER").required(),
+    cast: Joi.valid("SC", "ST", "OBC", "GENERAL", "OTHER").required(),
+    schooling: this.strOptional,
   });
 
-    static deleteStudent = Joi.object({
-      userId: Joi.number().required(),
-    });
+  static deleteStudent = Joi.object({
+    userId: Joi.number().required(),
+  });
 }
 
 module.exports = userValidator;

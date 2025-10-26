@@ -285,9 +285,9 @@ const encrypt = (text) => {
   for (let i = 0; i < text.length; i++) {
     encrypted += String.fromCharCode(
       text.charCodeAt(i) ^
-        process.env.ENCRYPT_SECURITY_KEY.charCodeAt(
-          i % process.env.ENCRYPT_SECURITY_KEY.length
-        )
+      process.env.ENCRYPT_SECURITY_KEY.charCodeAt(
+        i % process.env.ENCRYPT_SECURITY_KEY.length
+      )
     );
   }
   return CryptoJS.enc.Base64.stringify(CryptoJS.enc.Latin1.parse(encrypted));
@@ -306,9 +306,9 @@ const decrypt = (encryptedText) => {
   for (let i = 0; i < decoded.length; i++) {
     decrypted += String.fromCharCode(
       decoded.charCodeAt(i) ^
-        process.env.ENCRYPT_SECURITY_KEY.charCodeAt(
-          i % process.env.ENCRYPT_SECURITY_KEY.length
-        )
+      process.env.ENCRYPT_SECURITY_KEY.charCodeAt(
+        i % process.env.ENCRYPT_SECURITY_KEY.length
+      )
     );
   }
   return decrypted;
@@ -452,6 +452,7 @@ const decryptObject = (obj, keyLevel) => {
  * @returns {Array} - Decrypted array
  */
 const decryptArrayOfObjects = (arr, keyLevel) => {
+
   return arr.map((item) => {
     if (Array.isArray(item)) {
       // Recursively decrypt nested arrays
@@ -658,9 +659,15 @@ const decryptRequest = (req, res, next) => {
   }
 
   try {
-    const decryptedBody = decryptObject(req.body, eLevel(elevel));
+    console.log("====================================");
+    console.log("Before decrypt body:", req.body);
+    console.log("====================================");
 
-    req.body = decryptedBody;
+    // ✅ Only decrypt if body exists and has keys
+    if (req.body && Object.keys(req.body).length > 0) {
+      const decryptedBody = decryptObject(req.body, eLevel(elevel));
+      req.body = decryptedBody;
+    }
 
     next();
   } catch (error) {

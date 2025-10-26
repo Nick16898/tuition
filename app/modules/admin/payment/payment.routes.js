@@ -14,10 +14,12 @@ route.use(apiAdminAuth);
 route.use(fn.decryptRequest);
 
 
-route.post(`/addeditenrollment`, fn.validate(authenticationValidator.addEditEnrollment), AuthenticationController.addEditEnrollment);
+route.post(`/addeditpayment`, fn.validate(authenticationValidator.addEditPayment), AuthenticationController.addEditPayment);
 
-route.post(`/enrollmentlist`, AuthenticationController.enrollmentList);
+route.post(`/paymentlist`, AuthenticationController.paymentList);
 
-route.delete(`/deleteenrollment`, fn.validate(authenticationValidator.deleteEnrollment), AuthenticationController.deleteEnrollment);
+route.delete(`/deletepayment`, fn.validate(authenticationValidator.deletePayment), AuthenticationController.deletePayment);
+
+route.post(`/studentswithexpiringpayments`, AuthenticationController.studentsWithExpiringPayments);
 
 module.exports = route;

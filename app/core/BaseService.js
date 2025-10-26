@@ -43,9 +43,9 @@ class BaseModel {
       const knexQueryBuilder =
         typeof knexQuery === "function" ? knexQuery(knex) : knexQuery;
       const sql = knexQueryBuilder.toString();
-      // console.log('====================================');
-      // console.log(sql);
-      // console.log('====================================');
+      console.log('====================================');
+      console.log(sql);
+      console.log('====================================');
       return await query(sql);
     } catch (error) {
       console.error("Error executing query:", error);
@@ -440,6 +440,51 @@ class BaseModel {
       ? { count: totalCount, data: result }
       : { data: result };
   }
+
+  /**
+ * Calculate the end date based on a start date, duration, and type.
+ *
+ * @param {Object} data - Query options.
+ * @param {string} data.date - Start date in 'YYYY-MM-DD' format.
+ * @param {number} data.duration - Number of days, months, or years to add.
+ * @param {string} data.type - Type of duration ('Day', 'Month', or 'Year').
+ * @returns {string} End date in 'YYYY-MM-DD' format.
+ *
+ * @example
+ * calculateEndDate({ date: "2025-10-26", duration: 2, type: "Month" });
+ * // returns "2025-12-26"
+ */
+  async calculateEndDate(data) {
+    const { date, duration, type } = data;
+    const startDate = new Date(date);
+
+    let endDate = new Date(startDate);
+
+    switch (type.toLowerCase()) {
+      case "day":
+      case "days":
+        endDate.setDate(startDate.getDate() + duration);
+        break;
+
+      case "monthly":
+      case "months":
+        endDate.setMonth(startDate.getMonth() + duration);
+        break;
+
+      case "annual":
+      case "years":
+        endDate.setFullYear(startDate.getFullYear() + duration);
+        break;
+
+      default:
+        throw new Error("Invalid type! Use 'Day', 'Month', or 'Year'.");
+    }
+
+    // Format: YYYY-MM-DD
+    return endDate.toISOString().split("T")[0];
+  }
+
+
 }
 
 module.exports = BaseModel;

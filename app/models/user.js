@@ -18,6 +18,15 @@ module.exports = (sequelize) => {
       field: "fullName",
       autoIncrement: false,
     },
+    medium: {
+      type: DataTypes.STRING(120),
+      allowNull: true,
+      defaultValue: null,
+      comment: null,
+      primaryKey: false,
+      field: "medium",
+      autoIncrement: false,
+    },
     email: {
       type: DataTypes.STRING(60),
       allowNull: true,
@@ -35,6 +44,20 @@ module.exports = (sequelize) => {
       primaryKey: false,
       field: "mobileNumber",
       autoIncrement: false,
+    },
+    gender: {
+      type: DataTypes.ENUM("MALE", "FEMALE", "OTHER"),
+      allowNull: true,
+      defaultValue: "OTHER",
+      comment: null,
+      field: "gender",
+    },
+    cast: {
+      type: DataTypes.ENUM("SC", "ST", "OBC", "GENERAL", "OTHER"),
+      allowNull: true,
+      defaultValue: "OTHER",
+      comment: null,
+      field: "cast",
     },
     password: {
       type: DataTypes.STRING(255),
@@ -79,6 +102,15 @@ module.exports = (sequelize) => {
       comment: null,
       primaryKey: false,
       field: "address",
+      autoIncrement: false,
+    },
+    schooling: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+      defaultValue: null,
+      comment: null,
+      primaryKey: false,
+      field: "schooling",
       autoIncrement: false,
     },
     joiningDate: {

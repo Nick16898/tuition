@@ -39,7 +39,11 @@ class userController extends BaseController {
     let mobileNumber = req.body.mobileNumber || ""
     let address = req.body.address || ""
     let joiningDate = req.body.joiningDate || new Date()
-
+    let gender = req.body.gender || "OTHER"
+    let cast = req.body.cast || "OTHER"
+    let medium = req.body.medium || ""
+    let schooling = req.body.schooling || ""
+    
     try {
 
       if (mobileNumber) {
@@ -78,8 +82,19 @@ class userController extends BaseController {
         email,
         mobileNumber,
         address,
-        joiningDate
+        joiningDate,
+        gender,
+        cast,
+        medium,
+        schooling,
       }
+console.log('====================================');
+console.log(req.files);
+console.log('====================================');
+      if (req.file != undefined && req.file["filename"] != undefined && req.file["filename"] != null && req.file["filename"] != "") {
+        field["profilePicture"] = "user/profile/" + req.file["filename"];
+      }
+
       if (userId) {
         field["updatedBy"] = adminId
         await this.service.updateById(userId, field)
@@ -90,8 +105,10 @@ class userController extends BaseController {
       return successResponse(res, userId ? "Student details updated successfully" : "Student details saved successfully");
 
     } catch (error) {
+      console.log('====================================');
       console.log(error);
-      return errorResponse(res, "Something Went Wrong");
+      console.log('====================================');
+      // return errorResponse(res, "Something Went Wrong");
     }
   };
 
@@ -132,7 +149,12 @@ class userController extends BaseController {
         "mobileNumber",
         "block",
         "address",
-        "joiningDate"
+        "joiningDate",
+        "gender",
+        "cast",
+        "medium",
+        "schooling",
+        "profilePicture"
       ];
 
       let condition = {
@@ -149,7 +171,7 @@ class userController extends BaseController {
       }
 
       let data = await this.service.selectDataWithSearchAndJoin(condition)
-      return successResponse(res, "List", data);
+      return successResponse(res, "List", data, true);
 
     } catch (error) {
       console.log(error);

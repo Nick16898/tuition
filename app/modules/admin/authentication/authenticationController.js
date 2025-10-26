@@ -273,7 +273,7 @@ class adminController extends BaseController {
       if (chkmobile == true) {
         return errorResponse(res, "Mobile Number Already Exist");
       }
-      var obj = {
+      let obj = {
         fullName: fullName,
         email: email,
         countryCode: countryCode,
